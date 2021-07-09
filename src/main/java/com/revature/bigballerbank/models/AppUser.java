@@ -1,31 +1,41 @@
 package com.revature.bigballerbank.models;
 //@Entity(name = "app_users")
-public class AppUser {
-    //@Column(name= "username")
-    private String username;
 
-    //@Column(name= "password")
-    private String password;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
-    //@Column(name = "email")
-    private String email;
+import javax.persistence.*;
 
-    //@Column(name = "first_name")
-    private String firstName;
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "User")
+public class User {
 
-    //@Column(name "last_name")
-    private String lastName;
-
-    //@Column(name = "age")
-    private int age;
-
-    //@Id
-    //@Column(name= "user_id")
+    @Id
+    @Column(name = "user_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    public  AppUser(){
-        super();
-    }
+    @Column(name= "username")
+    private String username;
+
+    @Column(name= "password")
+    private String password;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "age")
+    private int age;
+
+
     public AppUser(String username,String password,String email,String firstName,String lastName,int age){
         System.out.println("AppUser invoked!");
         this.username = username;
@@ -36,48 +46,21 @@ public class AppUser {
         this.age = age;
         this.id = id;
     }
-    public String getUsername(){
-        return username;
-    }
-    public void setUsername(String username){ this.username = username; }
+    public int getId() {return this.id;}
 
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public String getFirstName() {return this.firstName;}
 
-    public String getEmail() {
-        return email;
-    }
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public String getLastName() {return this.lastName;}
 
-    public String getFirstName() {
-        return firstName;
-    }
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+    public String getEmail() {return this.email;}
 
-    public String getLastName() {
-        return lastName;
-    }
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+    public void setId(int id) {this.id = id; }
 
-    public int getAge() {
-        return age;
-    }
-    public void setAge(int age) {
-        this.age = age;
-    }
+    public void setFirstName(String firstName) {this.firstName = firstName; }
 
-    public void setId(int id) { this.id = id; }
-    public int getId() { return id; }
+    public void setLastName(String lastName) {this.lastName = lastName; }
+
+    public void setEmail(String email) {this.email = email; }
 
     public String toFileString() {
         return String.format("%s;%s;%s;%s;%s;%d", username, password, email, firstName, lastName, age);

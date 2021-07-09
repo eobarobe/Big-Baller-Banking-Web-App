@@ -1,7 +1,7 @@
 package com.revature.bigballerbank.aspects;
 
 import com.revature.bigballerbank.exceptions.DuplicateRegistrationException;
-import com.revature.bigballerbank.exceptions.InvalidCredentialsExcetion;
+import com.revature.bigballerbank.exceptions.InvalidCredentialsException;
 import com.revature.bigballerbank.exceptions.InvalidRequestException;
 import com.revature.bigballerbank.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -29,7 +29,7 @@ public class ExceptionHandlingAspect {
     public void handleInvalidRequestException(){}
 
     //raises exception when in proper credentials have been made [401]
-    @ExceptionHandler(InvalidCredentialsExcetion.class)
+    @ExceptionHandler(InvalidCredentialsException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public void handleInvalidCredentialsException(){}
 
