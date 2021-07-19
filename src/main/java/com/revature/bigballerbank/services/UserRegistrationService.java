@@ -5,10 +5,10 @@ import com.revature.project0.exception.InvalidRequestException;
 import com.revature.project0.exception.ResourcePersistenceException;
 import com.revature.project0.models.AppUser;
 
-public class UserService {
+public class UserRegistrationService {
     private UserDAO userDao;
 
-    public UserService(UserDAO userDao){
+    public UserRegistrationService(UserDAO userDao){
         this.userDao = userDao;
     }
     public void register(AppUser newUser){

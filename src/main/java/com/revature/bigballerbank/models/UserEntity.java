@@ -9,19 +9,14 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "User")
-public class User {
+@Table(name = "user")
+public class UserEntity {
 
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name= "username")
-    private String username;
-
-    @Column(name= "password")
-    private String password;
 
     @Column(name = "email")
     private String email;
@@ -36,10 +31,8 @@ public class User {
     private int age;
 
 
-    public AppUser(String username,String password,String email,String firstName,String lastName,int age){
+    public UserEntity(String username, String password, String email, String firstName, String lastName, int age){
         System.out.println("AppUser invoked!");
-        this.username = username;
-        this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -63,15 +56,13 @@ public class User {
     public void setEmail(String email) {this.email = email; }
 
     public String toFileString() {
-        return String.format("%s;%s;%s;%s;%s;%d", username, password, email, firstName, lastName, age);
+        return String.format("%s;%s;%s;%s;%s;%d", email, firstName, lastName, age);
     }
 
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("AppUser{");
-        sb.append("username='").append(username).append('\'');
-        sb.append(", password='").append(password).append('\'');
         sb.append(", email='").append(email).append('\'');
         sb.append(", firstName='").append(firstName).append('\'');
         sb.append(", lastName='").append(lastName).append('\'');

@@ -181,7 +181,7 @@ public class UserDAO {
         }
     //Grabs all user accounts to be displayed when they log in succesfully
     public LinkedList getAllCurrentUserAccounts(AppUser currentUser){
-        //this method will grab all user accounts,store it into UserAccount
+        //this method will grab all user accounts,store it into Account
         //object and add it to a linkedlist called userAccountLinkedList
         LinkedList<UserAccount> currentUserAccounts = new LinkedList<>();
         try(Connection conn = ConnectionFactory.getInstance().getConnection()){

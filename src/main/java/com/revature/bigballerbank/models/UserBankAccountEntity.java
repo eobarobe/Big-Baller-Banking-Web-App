@@ -1,38 +1,40 @@
 package com.revature.bigballerbank.models;
 
-// @Table
-// @Entity(name = "account")
-public class UserAccount {
-    // @Id
-    // @Column(name = "account_id")
-    private int accountId;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
-    // @Column(name = "user_id")
+import javax.persistence.*;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name= "bank_accounts")
+@Entity
+public class UserBankAccountEntity {
+    @Id
+    @Column(name = "account_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @OneToOne
+    @JoinColumn
+    private UserEntity user;
+
+    @Column(name = "user_id")
     private int userId;
 
-    // @Column(name = "balance_id")
+    @Column(name = "balance_id")
     private double balance;
 
-    // @Column(name = "account_type")
+    @Column(name = "account_type")
     private String accountType;
 
-    public UserAccount(){
-        super();
-    }
-    public UserAccount(int userId, double balance,String accountType){
-        System.out.println("UserAccount invoked!");
-        this.accountId = accountId;
-        this.userId = userId;
-        this.balance = balance;
-        this.accountType = accountType;
-    }
 
     public int getAccountId() {
-        return accountId;
+        return id;
     }
 
     public void setAccountId(int accountId) {
-        this.accountId = accountId;
+        this.id = accountId;
     }
 
     public int getUserId() {
@@ -60,8 +62,8 @@ public class UserAccount {
     }
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("UserAccount{");
-        sb.append(" accountId='").append(accountId).append('\'');
+        final StringBuilder sb = new StringBuilder("Account{");
+        sb.append(" accountId='").append(id).append('\'');
         sb.append(", userId='").append(userId).append('\'');
         sb.append(", balance= $'").append(balance).append('\'');
         sb.append(", accountType='").append(accountType).append('\'');
