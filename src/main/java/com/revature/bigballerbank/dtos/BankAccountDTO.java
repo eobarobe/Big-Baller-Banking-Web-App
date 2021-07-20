@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public @Data class BankAccountDTO {
     private Integer bankAccountID;
     public BankAccountDTO(UserBankAccountEntity bankAccountEntity){
-        this.bankAccountID = bankAccountEntity.getAccountId();
+        this.bankAccountID = bankAccountEntity.getId();
     }
 
 }

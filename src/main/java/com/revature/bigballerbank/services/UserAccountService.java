@@ -13,10 +13,11 @@ import com.revature.bigballerbank.repositories.UserAccountRepository;
 import com.revature.bigballerbank.repositories.UserRoleRepository;
 import com.revature.bigballerbank.repositories.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Optional;
 
@@ -74,20 +75,28 @@ public class UserAccountService {
         if(!optionalRoleEntity.isPresent()){
             throw new InvalidRoleException("Nonexisting role");
         }
-
-        userAccountEntity.setUsername( userAccountRegisterDTO.getUsername() );
-        userAccountEntity.setPassword( userAccountRegisterDTO.getPassword() );
-        HashSet<UserRoleEntity> roleHashSet = new HashSet<>();
-        roleHashSet.add(optionalRoleEntity.get());
-
         userEntity.setEmail(userAccountRegisterDTO.getEmail());
         userEntity.setFirstName(userAccountRegisterDTO.getFirstName());
         userEntity.setLastName(userAccountRegisterDTO.getLastName());
+        userEntity.setAge(userAccountRegisterDTO.getAge());
+
+        HashSet<UserRoleEntity> roleHashSet = new HashSet<>();
+        roleHashSet.add(optionalRoleEntity.get());
+
+        userAccountEntity.setUsername( userAccountRegisterDTO.getUsername() );
+        userAccountEntity.setPassword( userAccountRegisterDTO.getPassword() );
+        userAccountEntity.setUser(userEntity);
+
+
+
 
         try{
-            accountRepository.save(userAccountEntity);
             userRepository.save(userEntity);
+            accountRepository.save(userAccountEntity);
+
         }catch (Exception e){
+            System.out.println(e);
+
             throw new DuplicateRegistrationException("username and or email already exists");
         }
         AuthenticatedDTO authenticatedDTO = new AuthenticatedDTO(userAccountEntity);

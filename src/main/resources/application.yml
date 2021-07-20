@@ -6,7 +6,7 @@ spring:
 server:
   port: 5000
 jwt:
-  secret: #your secret key goes here, this is used to generate JSON web tokens
+  secret: c0369674-1ddc-44b4-b36d-db4877b0c548 #your secret key goes here, this is used to generate JSON web tokens
 
 logging:
   file:
@@ -22,7 +22,7 @@ spring:
     url: jdbc:h2:mem:test
     driver-class-name: org.h2.Driver
     username: admin
-    password: revature
+    password: password
   h2:
     console:
       settings:

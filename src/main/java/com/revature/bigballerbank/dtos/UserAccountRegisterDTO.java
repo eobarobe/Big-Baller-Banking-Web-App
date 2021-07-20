@@ -12,4 +12,5 @@ public @Data class UserAccountRegisterDTO {
     String email;
     String firstName;
     String lastName;
+    int age;
 }

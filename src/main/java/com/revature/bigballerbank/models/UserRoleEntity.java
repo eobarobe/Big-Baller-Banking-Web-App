@@ -10,13 +10,13 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Table(name = "user_roles")
-@ToString
-public @Data class UserRoleEntity {
+public class UserRoleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")
-    private int Id;
+    private int id;
 
     @Column(name = "name")
     private String name;
