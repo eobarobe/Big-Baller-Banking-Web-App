@@ -32,7 +32,7 @@ public class UserAccountEntity {
             joinColumns = {@JoinColumn(name = "user_account_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
-    private Set<UserRoleEntity> roles = new HashSet<>();
+    private Set<RoleEntity> roles = new HashSet<>();
 
     @Column(name = "username",unique = true, nullable = false)
     private String username;

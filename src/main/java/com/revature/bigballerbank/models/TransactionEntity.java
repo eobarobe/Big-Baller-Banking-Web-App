@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Data
 @Table(name = "transactions")
-public class UserTransactionEntity {
+public class TransactionEntity {
     @Id
     @Column(name = "transaction_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,9 +21,9 @@ public class UserTransactionEntity {
     @JoinColumn(name = "user_account_id", nullable = false)
     private UserAccountEntity userAccountEntity;
 
-    @ManyToOne(targetEntity = UserBankAccountEntity.class)
-    @JoinColumn(name = "user_bank_account_entity_id", nullable = false)
-    private UserBankAccountEntity userBankAccountEntity;
+    @ManyToOne(targetEntity = BankAccountEntity.class)
+    @JoinColumn(name = "bank_account_id", nullable = false)
+    private BankAccountEntity bankAccountEntity;
 
     @Column(name = "transaction_type", nullable = false)
     private String transactionType;

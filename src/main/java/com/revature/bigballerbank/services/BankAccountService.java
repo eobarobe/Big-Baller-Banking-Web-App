@@ -3,11 +3,11 @@ package com.revature.bigballerbank.services;
 import com.revature.bigballerbank.dtos.requests.DepositRequestDTO;
 import com.revature.bigballerbank.dtos.requests.WithdrawalRequestDTO;
 import com.revature.bigballerbank.dtos.responses.WithdrawalResponseDTO;
-import com.revature.bigballerbank.models.UserBankAccountEntity;
+import com.revature.bigballerbank.models.BankAccountEntity;
 import com.revature.bigballerbank.repositories.UserAccountRepository;
-import com.revature.bigballerbank.repositories.UserBankAccountRepository;
+import com.revature.bigballerbank.repositories.BankAccountRepository;
 import com.revature.bigballerbank.repositories.UserRepository;
-import com.revature.bigballerbank.repositories.UserRoleRepository;
+import com.revature.bigballerbank.repositories.RoleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,11 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @AllArgsConstructor(onConstructor =  @__(@Autowired))
-public class UserBankAccountService {
+public class BankAccountService {
     private final UserRepository userRepository;
-    private final UserAccountRepository accountRepository;
-    private final UserRoleRepository roleRepository;
-    private final UserBankAccountRepository userBankAccountRepository;
+    private final UserAccountRepository userAccountRepository;
+    private final RoleRepository roleRepository;
+    private final BankAccountRepository bankAccountRepository;
 
     /**
      * This method is responsible for making deposits of a specified amount
@@ -28,7 +28,7 @@ public class UserBankAccountService {
      * then records the transaction into a transactions table
      * */
     public boolean deposit(DepositRequestDTO depositRequestDTO){
-        UserBankAccountEntity accountToDepositTo = (UserBankAccountEntity) userBankAccountRepository.findById(depositRequestDTO.getBankAccountId()).get();
+        BankAccountEntity accountToDepositTo = (BankAccountEntity) bankAccountRepository.findById(depositRequestDTO.getBankAccountId()).get();
         if(depositRequestDTO.getDepositAmount() > 0) {
             accountToDepositTo.setBalance(accountToDepositTo.getBalance() + depositRequestDTO.getDepositAmount());
             return true;
@@ -43,7 +43,7 @@ public class UserBankAccountService {
      * If not it successfully withdraws the amount from the account
      * */
     public WithdrawalResponseDTO withdraw(WithdrawalRequestDTO withdrawalRequestDTO){
-        UserBankAccountEntity accountToWithdrawFrom = (UserBankAccountEntity) userBankAccountRepository.findById(withdrawalRequestDTO.getBankAccountId()).get();
+        BankAccountEntity accountToWithdrawFrom = (BankAccountEntity) bankAccountRepository.findById(withdrawalRequestDTO.getBankAccountId()).get();
         double amountAfterWithdrawal = accountToWithdrawFrom.getBalance()-withdrawalRequestDTO.getWithdrawalAmount();
         if( amountAfterWithdrawal  > 0 ) {
             accountToWithdrawFrom.setBalance(amountAfterWithdrawal);

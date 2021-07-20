@@ -8,12 +8,11 @@ import com.revature.bigballerbank.exceptions.InvalidCredentialsException;
 import com.revature.bigballerbank.exceptions.InvalidRoleException;
 import com.revature.bigballerbank.models.UserEntity;
 import com.revature.bigballerbank.models.UserAccountEntity;
-import com.revature.bigballerbank.models.UserRoleEntity;
+import com.revature.bigballerbank.models.RoleEntity;
 import com.revature.bigballerbank.repositories.UserAccountRepository;
-import com.revature.bigballerbank.repositories.UserRoleRepository;
+import com.revature.bigballerbank.repositories.RoleRepository;
 import com.revature.bigballerbank.repositories.UserRepository;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,8 +27,8 @@ import java.util.Optional;
 @AllArgsConstructor(onConstructor =  @__(@Autowired))
 public class UserAccountService {
     private final UserRepository userRepository;
-    private final UserAccountRepository accountRepository;
-    private final UserRoleRepository roleRepository;
+    private final UserAccountRepository userAccountRepository;
+    private final RoleRepository roleRepository;
 
     /**
      *  This method is responsible for logging into an account that exists in a database
@@ -41,12 +40,12 @@ public class UserAccountService {
     public AuthenticatedDTO login(CredentialsDTO credentialsDTO) throws InvalidCredentialsException{
         UserAccountEntity userAccountEntity;
         AuthenticatedDTO authenticatedDTO;
-        userAccountEntity = accountRepository.findByUsernameAndPassword(credentialsDTO.getUsername(),credentialsDTO.getPassword());
+        userAccountEntity = userAccountRepository.findByUsernameAndPassword(credentialsDTO.getUsername(),credentialsDTO.getPassword());
 
         try{
             authenticatedDTO = new AuthenticatedDTO(userAccountEntity);
         }catch(NullPointerException npe){
-            throw new InvalidCredentialsException("Invalid Username and or Passowrd!");
+            throw new InvalidCredentialsException("Invalid Username and or Password!");
         }
         return authenticatedDTO;
     }
@@ -71,7 +70,7 @@ public class UserAccountService {
     public AuthenticatedDTO register(UserAccountRegisterDTO userAccountRegisterDTO){
         UserAccountEntity userAccountEntity = new UserAccountEntity();
         UserEntity userEntity = new UserEntity();
-        Optional<UserRoleEntity> optionalRoleEntity = roleRepository.findById(1);
+        Optional<RoleEntity> optionalRoleEntity = roleRepository.findById(1);
         if(!optionalRoleEntity.isPresent()){
             throw new InvalidRoleException("Nonexisting role");
         }
@@ -80,7 +79,7 @@ public class UserAccountService {
         userEntity.setLastName(userAccountRegisterDTO.getLastName());
         userEntity.setAge(userAccountRegisterDTO.getAge());
 
-        HashSet<UserRoleEntity> roleHashSet = new HashSet<>();
+        HashSet<RoleEntity> roleHashSet = new HashSet<>();
         roleHashSet.add(optionalRoleEntity.get());
 
         userAccountEntity.setUsername( userAccountRegisterDTO.getUsername() );
@@ -92,7 +91,7 @@ public class UserAccountService {
 
         try{
             userRepository.save(userEntity);
-            accountRepository.save(userAccountEntity);
+            userAccountRepository.save(userAccountEntity);
 
         }catch (Exception e){
             System.out.println(e);

@@ -1,6 +1,6 @@
 package com.revature.bigballerbank.dtos;
 
-import com.revature.bigballerbank.models.UserBankAccountEntity;
+import com.revature.bigballerbank.models.BankAccountEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public @Data class BankAccountDTO {
     private Integer bankAccountID;
-    public BankAccountDTO(UserBankAccountEntity bankAccountEntity){
+    public BankAccountDTO(BankAccountEntity bankAccountEntity){
         this.bankAccountID = bankAccountEntity.getId();
     }
 

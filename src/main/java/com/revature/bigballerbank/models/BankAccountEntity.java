@@ -11,14 +11,14 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Data
 @Table(name= "bank_accounts")
-public class UserBankAccountEntity {
+public class BankAccountEntity {
     @Id
-    @Column(name = "user_bank_account_id")
+    @Column(name = "bank_account_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne(targetEntity = UserAccountEntity.class)
-    @JoinColumn(name = "user_account_entity_id")
+    @JoinColumn(name = "user_account_id")
     private UserAccountEntity userAccountEntity;
 
     @OneToOne
