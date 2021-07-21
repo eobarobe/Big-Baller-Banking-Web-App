@@ -10,8 +10,7 @@ import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
-public @Data
-class AuthenticatedDTO {
+public @Data class AuthenticatedDTO {
     private int id;
     private String username;
     private Set<RoleEntity> roles;

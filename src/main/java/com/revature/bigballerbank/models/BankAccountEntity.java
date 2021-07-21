@@ -9,9 +9,8 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @Table(name= "bank_accounts")
-public class BankAccountEntity {
+public @Data class BankAccountEntity {
     @Id
     @Column(name = "bank_account_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,10 +19,6 @@ public class BankAccountEntity {
     @ManyToOne(targetEntity = UserAccountEntity.class)
     @JoinColumn(name = "user_account_id")
     private UserAccountEntity userAccountEntity;
-
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
 
     @Column(name = "balance")
     private double balance;

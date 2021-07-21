@@ -8,9 +8,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public @Data class BankAccountDTO {
-    private Integer bankAccountID;
+    private int bankAccountID;
+    private double bankAccountBalance;
+    private String bankAccountType;
+
     public BankAccountDTO(BankAccountEntity bankAccountEntity){
         this.bankAccountID = bankAccountEntity.getId();
+        this.bankAccountType = bankAccountEntity.getAccountType();
+        this.bankAccountBalance = bankAccountEntity.getBalance();
     }
 
 }

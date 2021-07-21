@@ -1,25 +1,25 @@
 package com.revature.bigballerbank.controllers;
 
-import com.revature.bigballerbank.dtos.AuthenticatedDTO;
-import com.revature.bigballerbank.dtos.CredentialsDTO;
-import com.revature.bigballerbank.dtos.UserAccountRegisterDTO;
+import com.revature.bigballerbank.dtos.*;
+import com.revature.bigballerbank.services.BankAccountService;
 import com.revature.bigballerbank.services.UserAccountService;
 import io.swagger.annotations.ResponseHeader;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Set;
 
 @RestController
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class AccountController {
     private final UserAccountService userAccountService;
+    private final BankAccountService bankAccountService;
+
 
     @PostMapping(value = "/auth", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -28,6 +28,8 @@ public class AccountController {
         AuthenticatedDTO authenticatedDTO = userAccountService.login(credentialsDTO);
         return authenticatedDTO;
     }
+
+
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)

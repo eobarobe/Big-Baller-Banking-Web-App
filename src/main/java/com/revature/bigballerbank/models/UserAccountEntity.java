@@ -14,6 +14,7 @@ import java.util.Set;
 @Data
 @Table(name= "user_accounts")
 public class UserAccountEntity {
+
     //primary key for user accounts
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

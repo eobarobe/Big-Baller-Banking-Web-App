@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public @Data class UserAccountDTO {
     String username;
+
     public UserAccountDTO(UserAccountEntity userAccountEntity) {
         this.username = userAccountEntity.getUsername();
 
