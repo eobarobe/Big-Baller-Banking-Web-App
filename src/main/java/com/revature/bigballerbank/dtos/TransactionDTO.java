@@ -1,4 +1,4 @@
 package com.revature.bigballerbank.dtos;
 
-public class TransactionsDTO {
+public class TransactionDTO {
 }
