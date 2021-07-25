@@ -56,6 +56,5 @@ public class BankAccountController {
         if (!bankAccountService.withdraw(withdrawalRequestDTO)){
             httpServletResponse.setStatus(HttpStatus.NOT_MODIFIED.value());
         }
-
     }
 }
