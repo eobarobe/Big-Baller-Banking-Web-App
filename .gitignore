@@ -27,7 +27,7 @@ hs_err_pid*
 /.idea
 *.iml
 
-#Config fiiles you will need to gitignore
+#Config files you will need to gitignore
 *.yml
 *.properties
 

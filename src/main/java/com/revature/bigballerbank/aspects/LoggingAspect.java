@@ -15,7 +15,7 @@ import java.util.Arrays;
 public class LoggingAspect {
     /**
      * Logging messages based on returns,starts and exceptions is a concern
-     * that is accross multiple classes within this program. Cross-cutting concern.
+     * that is across multiple classes within this program. Cross-cutting concern.
      * And so we have annotated this logging class with the Spring @Aspect annotation
      **/
 
@@ -30,13 +30,13 @@ public class LoggingAspect {
         //pointcuts need empty logic w/in their methods
     }
     //@Before: type of Spring AOP advice that runs before a join point
-    //doesnt have the ability to prevent the execution flow preceding to the jp unless an error is thrown
+    //doesn't have the ability to prevent the execution flow preceding to the jp unless an error is thrown
     @Before("logAll()")
     public void logStartMethod(JoinPoint joinPoint){
         String methodSig = extractMethodSignature(joinPoint);
         String argStr = Arrays.toString(joinPoint.getArgs());
         logger.info("{} invoked at {}", methodSig, LocalDateTime.now());
-        logger.info("Input arguements: {}",argStr);
+        logger.info("Input arguments: {}",argStr);
     }
     //runs after a join point method completes normally w/o an exception
     @AfterReturning(pointcut = "logAll()",returning = "returnedObj")

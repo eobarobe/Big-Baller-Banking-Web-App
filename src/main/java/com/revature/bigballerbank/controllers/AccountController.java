@@ -21,6 +21,7 @@ public class AccountController {
     private final BankAccountService bankAccountService;
 
 
+    @CrossOrigin
     @PostMapping(value = "/auth", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @ResponseHeader(name = "httpServletResponse")
@@ -30,7 +31,7 @@ public class AccountController {
     }
 
 
-
+    @CrossOrigin
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseHeader(name = "httpServletResponse")
