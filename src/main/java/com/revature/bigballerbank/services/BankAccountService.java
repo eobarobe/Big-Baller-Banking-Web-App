@@ -57,11 +57,11 @@ public class BankAccountService {
         Optional<BankAccountEntity> optionalBankAccountEntity;
         BankAccountEntity accountToDepositTo;
 
-        optionalBankAccountEntity = bankAccountRepository.findById(depositRequestDTO.getBankAccountId());
+        optionalBankAccountEntity = bankAccountRepository.findById(Integer.parseInt(depositRequestDTO.getBankAccountId()));
         if(optionalBankAccountEntity.isPresent()){
             accountToDepositTo = optionalBankAccountEntity.get();
-            if(depositRequestDTO.getDepositAmount() >= 0) {
-                accountToDepositTo.setBalance(accountToDepositTo.getBalance() + depositRequestDTO.getDepositAmount());
+            if(Double.parseDouble(depositRequestDTO.getDepositAmount()) >= 0) {
+                accountToDepositTo.setBalance(Double.parseDouble(accountToDepositTo.getBalance() + depositRequestDTO.getDepositAmount()));
                 bankAccountRepository.save(accountToDepositTo);
                 return true;
             }

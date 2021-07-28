@@ -40,6 +40,7 @@ public class BankAccountController {
         return bankAccountService.viewUserBankAccounts(userAccountDTO);
     }
 
+    @CrossOrigin
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping(value = "/deposit", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void deposit(@RequestBody DepositRequestDTO depositRequestDTO, HttpServletResponse httpServletResponse) {

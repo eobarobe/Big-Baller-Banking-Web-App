@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DepositRequestDTO {
-    private int bankAccountId;
-    private double depositAmount;
+    private String bankAccountId;
+    private String depositAmount;
 
 }
