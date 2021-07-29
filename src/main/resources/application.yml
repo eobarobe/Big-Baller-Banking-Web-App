@@ -4,7 +4,7 @@ spring:
   profiles:
     active: local #option of local,test, or dev
 server:
-  port: 5000
+  port: 5050
 jwt:
   secret: c0369674-1ddc-44b4-b36d-db4877b0c548 #your secret key goes here, this is used to generate JSON web tokens
 
