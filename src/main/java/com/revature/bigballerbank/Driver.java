@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
+//allows us to import spring security while also disabling spring boot's (opinionated)auto-configuration
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 @Import({AppConfig.class})
 public class Driver {

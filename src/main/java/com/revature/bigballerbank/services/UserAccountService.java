@@ -71,6 +71,11 @@ public class UserAccountService {
         }
         return true;
     }
+    /***
+     * takes in rawPassword from login and encoded password from
+     * storage and checks to see if the two are a match. Returns
+     * true if they are and false if otherwise
+     * **/
     private boolean matches(String rawP, String encodedP){
         boolean match = passwordEncoder.matches(rawP, encodedP);
         boolean hasText = !StringUtils.hasText(encodedP);
