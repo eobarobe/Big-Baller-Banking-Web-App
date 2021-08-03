@@ -26,6 +26,9 @@
             <name>Eloho Obaro-Best</name>
             <email>sample email</email>
         </developer>
+        <developer>
+            <name>Sheckeem Daley</name>
+        </developer>
     </developers>
 
     <dependencies>
@@ -36,6 +39,10 @@
         </dependency>
 
         <!--Security & Authorization-->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

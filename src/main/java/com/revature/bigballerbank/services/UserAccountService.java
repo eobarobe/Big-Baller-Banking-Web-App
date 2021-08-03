@@ -14,6 +14,8 @@ import com.revature.bigballerbank.repositories.RoleRepository;
 import com.revature.bigballerbank.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +28,10 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor(onConstructor =  @__(@Autowired))
 public class UserAccountService {
+    //Security
+    private final PasswordEncoder passwordEncoder;
+
+    //Repositories
     private final UserRepository userRepository;
     private final UserAccountRepository userAccountRepository;
     private final RoleRepository roleRepository;
@@ -40,7 +46,10 @@ public class UserAccountService {
     public AuthenticatedDTO login(CredentialsDTO credentialsDTO) throws InvalidCredentialsException{
         UserAccountEntity userAccountEntity;
         AuthenticatedDTO authenticatedDTO;
-        userAccountEntity = userAccountRepository.findByUsernameAndPassword(credentialsDTO.getUsername(),credentialsDTO.getPassword());
+
+        String encodedPassword = passwordEncoder.encode(credentialsDTO.getPassword());
+        System.out.println(encodedPassword);
+        userAccountEntity = userAccountRepository.findByUsernameAndPassword( credentialsDTO.getUsername(),encodedPassword );
 
         try{
             authenticatedDTO = new AuthenticatedDTO(userAccountEntity);
@@ -83,7 +92,7 @@ public class UserAccountService {
         roleHashSet.add(optionalRoleEntity.get());
 
         userAccountEntity.setUsername( userAccountRegisterDTO.getUsername() );
-        userAccountEntity.setPassword( userAccountRegisterDTO.getPassword() );
+        userAccountEntity.setPassword( passwordEncoder.encode(userAccountRegisterDTO.getPassword()) );
         userAccountEntity.setUser(userEntity);
 
 
