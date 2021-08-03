@@ -41,5 +41,6 @@ public class UserAccountEntity {
     @Column(name="password",nullable = false)
     private String password;
 
+
 }
 

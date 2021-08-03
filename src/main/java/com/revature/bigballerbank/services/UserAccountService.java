@@ -1,5 +1,6 @@
 package com.revature.bigballerbank.services;
 
+import org.springframework.util.StringUtils;
 import com.revature.bigballerbank.dtos.AuthenticatedDTO;
 import com.revature.bigballerbank.dtos.CredentialsDTO;
 import com.revature.bigballerbank.dtos.UserAccountRegisterDTO;
@@ -45,17 +46,20 @@ public class UserAccountService {
      * */
     public AuthenticatedDTO login(CredentialsDTO credentialsDTO) throws InvalidCredentialsException{
         UserAccountEntity userAccountEntity;
-        AuthenticatedDTO authenticatedDTO;
+        AuthenticatedDTO authenticatedDTO = null;
 
-        String encodedPassword = passwordEncoder.encode(credentialsDTO.getPassword());
-        System.out.println(encodedPassword);
-        userAccountEntity = userAccountRepository.findByUsernameAndPassword( credentialsDTO.getUsername(),encodedPassword );
+        
+        
+        userAccountEntity = userAccountRepository.findByUsername( credentialsDTO.getUsername() );
 
-        try{
-            authenticatedDTO = new AuthenticatedDTO(userAccountEntity);
-        }catch(NullPointerException npe){
-            throw new InvalidCredentialsException("Invalid Username and or Password!");
+        if( matches(credentialsDTO.getPassword(),userAccountEntity.getPassword()) ){
+            try{
+                authenticatedDTO = new AuthenticatedDTO(userAccountEntity);
+            }catch(NullPointerException npe){
+                throw new InvalidCredentialsException("Invalid Username and or Password!");
+            }
         }
+       
         return authenticatedDTO;
     }
     /**
@@ -66,6 +70,14 @@ public class UserAccountService {
             return false;
         }
         return true;
+    }
+    private boolean matches(String rawP, String encodedP){
+        boolean match = passwordEncoder.matches(rawP, encodedP);
+        boolean hasText = !StringUtils.hasText(encodedP);
+        System.out.println("hasText: "+hasText);
+        System.out.println("2nd param: "+match);
+
+        return !StringUtils.hasText(encodedP) || passwordEncoder.matches(rawP, encodedP);
     }
 
     /**
@@ -80,6 +92,8 @@ public class UserAccountService {
         UserAccountEntity userAccountEntity = new UserAccountEntity();
         UserEntity userEntity = new UserEntity();
         Optional<RoleEntity> optionalRoleEntity = roleRepository.findById(1);
+
+
         if(!optionalRoleEntity.isPresent()){
             throw new InvalidRoleException("Nonexisting role");
         }
