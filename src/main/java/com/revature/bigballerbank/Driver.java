@@ -14,7 +14,7 @@ public class Driver {
     public static void main(String[] args) {
         System.out.println("Initializing Big Baller Bank application...");
         SpringApplication.run(Driver.class,args);
-        System.out.println("Initialized Big Baller Bank application....");
+        System.out.println("Initialized Big Baller Bank application...");
 
     }
 
