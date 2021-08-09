@@ -47,12 +47,13 @@ public class UserAccountService {
     public AuthenticatedDTO login(CredentialsDTO credentialsDTO) throws InvalidCredentialsException{
         UserAccountEntity userAccountEntity;
         AuthenticatedDTO authenticatedDTO = null;
+        boolean matches = false;
 
         
         
         userAccountEntity = userAccountRepository.findByUsername( credentialsDTO.getUsername() );
-
-        if( matches(credentialsDTO.getPassword(),userAccountEntity.getPassword()) ){
+        matches = passwordEncoder.matches(credentialsDTO.getPassword(), userAccountEntity.getPassword());
+        if( matches ){
             try{
                 authenticatedDTO = new AuthenticatedDTO(userAccountEntity);
             }catch(NullPointerException npe){
@@ -76,11 +77,11 @@ public class UserAccountService {
      * storage and checks to see if the two are a match. Returns
      * true if they are and false if otherwise
      * **/
-    private boolean matches(String rawP, String encodedP){
-        boolean match = passwordEncoder.matches(rawP, encodedP);
-        boolean hasText = !StringUtils.hasText(encodedP);
-        System.out.println("hasText: "+hasText);
-        System.out.println("2nd param: "+match);
+    boolean matches(String rawP, String encodedP){
+        //boolean match = passwordEncoder.matches(rawP, encodedP);
+//        boolean hasText = !StringUtils.hasText(encodedP);
+//        System.out.println("hasText: "+hasText);
+//        System.out.println("2nd param: "+match);
 
         return !StringUtils.hasText(encodedP) || passwordEncoder.matches(rawP, encodedP);
     }
